@@ -10,14 +10,23 @@ interface RowData {
 
 export default function Grid() {
   const [columnDefs] = useState<ColDef<RowData>[]>([
-    { headerName: "Name", field: "name" },
+    {
+      headerName: "Name",
+      field: "name",
+      sortable: true,
+      sortingOrder: ["asc", "desc"],
+    },
     { headerName: "Color", field: "color" },
   ]);
   const [rowData] = useState<RowData[]>(data.products);
 
   return (
     <div className="ag-theme-alpine">
-      <AgGridReact columnDefs={columnDefs} rowData={rowData}></AgGridReact>
+      <AgGridReact
+        columnDefs={columnDefs}
+        rowData={rowData}
+        multiSortKey="ctrl"
+      ></AgGridReact>
     </div>
   );
 }
