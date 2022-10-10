@@ -31,18 +31,22 @@ export default function Grid() {
     {
       headerName: "Customer Name",
       field: "customer.name",
+      filter: true,
     },
     {
       headerName: "Account No",
       field: "account.accountNumber",
+      filter: "agNumberColumnFilter",
     },
     {
       headerName: "Date of Order",
       field: "dateOfOrder",
+      filter: "agDateColumnFilter",
     },
     {
       headerName: "Total",
       field: "total",
+      filter: "agNumberColumnFilter",
     },
   ]);
 
