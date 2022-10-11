@@ -31,11 +31,15 @@ export default function Grid() {
       headerName: "Customer Name",
       field: "customer.name",
       filter: true,
+      editable: true,
     },
     {
       headerName: "Account No",
       field: "account.accountNumber",
       filter: "agNumberColumnFilter",
+      editable: true,
+      cellEditor: "agLargeTextCellEditor",
+      cellEditorPopup: true,
     },
     {
       headerName: "Date of Order",
