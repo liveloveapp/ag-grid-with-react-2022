@@ -8,11 +8,17 @@ import {
 } from "react";
 
 const ColorEditor = forwardRef<ICellEditor, ICellEditorParams>((props, ref) => {
-  const [value, setValue] = useState(props.value);
+  /**
+   * 1. Use props.value to set the initial value of the input
+   */
+  const [value, setValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   useImperativeHandle(ref, () => ({
-    getValue: () => value,
+    /**
+     * 2. Implement the getValue method to return the value of the input
+     */
+    getValue: () => "",
   }));
 
   useEffect(() => {
