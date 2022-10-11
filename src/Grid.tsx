@@ -42,6 +42,17 @@ export default function Grid() {
       headerName: "Date of Order",
       field: "dateOfOrder",
       filter: "agDateColumnFilter",
+      cellRenderer: (params: ICellRendererParams) => {
+        if (params.value === undefined) {
+          return null;
+        }
+        return (
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <span className="material-icons">event</span>
+            {new Intl.DateTimeFormat("en-US").format(params.value)}
+          </div>
+        );
+      },
     },
     {
       headerName: "Total",
