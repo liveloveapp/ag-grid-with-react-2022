@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { ColDef } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import data from "./data.json";
+import { ColorEditor, ColorRenderer, getRandomColorHex } from "./color";
 
 interface RowData {
   id: number;
@@ -32,6 +33,13 @@ export default function Grid() {
       field: "customer.name",
       filter: true,
       editable: true,
+    },
+    {
+      headerName: "Color",
+      field: "color",
+      cellRenderer: ColorRenderer,
+      editable: true,
+      cellEditor: ColorEditor,
     },
     {
       headerName: "Account No",
@@ -66,6 +74,7 @@ export default function Grid() {
       ...order,
       // create Date object value for dateOfOrder field
       dateOfOrder: new Date(`${order.dateOfOrder.slice(0, 10)}T00:00:00.0`),
+      color: getRandomColorHex(),
       account: data.accounts.find((account) => account.id === order.accountId)!,
       customer: data.customers.find(
         (customer) => customer.id === order.customerId
