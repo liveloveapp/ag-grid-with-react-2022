@@ -44,18 +44,16 @@ export default function Grid() {
     },
     {
       headerName: "Total",
+      field: "total",
       filter: "agNumberColumnFilter",
-      valueGetter: (params) => {
+      valueFormatter: (params) => {
         if (!params.data) {
-          return null;
+          return "0";
         }
-        const orderItems = params.data.orderItems;
-        return orderItems
-          .filter((item) => item.orderId === params.data!.id)
-          .map((item) =>
-            data.products.find((product) => product.id === item.productId)
-          )
-          .reduce((prev, current) => prev + Number(current!.price), 0);
+        return new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(params.value);
       },
     },
   ]);
@@ -69,6 +67,13 @@ export default function Grid() {
         (customer) => customer.id === order.customerId
       )!,
       orderItems: data.orderItems.filter((item) => item.orderId === order.id),
+      total: data.orderItems
+        .filter((item) => item.orderId === order.id)
+        .map(
+          (item) =>
+            data.products.find((product) => product.id === item.productId)!
+        )
+        .reduce((prev, current) => prev + Number(current.price), 0),
     }));
   }, [data]);
 
