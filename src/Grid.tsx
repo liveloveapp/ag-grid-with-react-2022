@@ -45,6 +45,18 @@ export default function Grid() {
     {
       headerName: "Total",
       filter: "agNumberColumnFilter",
+      valueGetter: (params) => {
+        if (!params.data) {
+          return null;
+        }
+        const orderItems = params.data.orderItems;
+        return orderItems
+          .filter((item) => item.orderId === params.data!.id)
+          .map((item) =>
+            data.products.find((product) => product.id === item.productId)
+          )
+          .reduce((prev, current) => prev + Number(current!.price), 0);
+      },
     },
   ]);
   const rowData = useMemo<RowData[]>(() => {
